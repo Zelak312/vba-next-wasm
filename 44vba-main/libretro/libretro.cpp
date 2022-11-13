@@ -447,7 +447,7 @@ static void gba_init(void)
 
    // doMirroring(mirroringEnable);
 
-   soundSetSampleRate(32000);
+   soundSetSampleRate(48000);
 
 #if HAVE_HLE_BIOS
    bool usebios = false;

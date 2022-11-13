@@ -34,6 +34,11 @@ export class Emulator {
         );
     }
 
+    static emuLoop() {
+        window.requestAnimationFrame(this.emuLoop.bind(this));
+        this.runFrame();
+    }
+
     static runFrame(): void {
         if (this.isRunning) {
             this.frameCnt++;
@@ -87,6 +92,8 @@ export class Emulator {
         // Module._emuResetCpu();
         // isRunning = true;
         // }); // load save game
+
+        this.emuLoop();
     }
 
     static loadSave(arrayBuffer: ArrayBuffer): void {

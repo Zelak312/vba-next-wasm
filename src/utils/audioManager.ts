@@ -24,7 +24,7 @@ export class AudioManager {
             this.context = new (window.AudioContext ||
                 (window as any).webkitAudioContext)({
                 latencyHint: 0.0001,
-                sampleRate: 49000,
+                sampleRate: 50000,
             });
 
             const scriptProcessor = this.context.createScriptProcessor(

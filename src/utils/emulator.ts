@@ -1,4 +1,3 @@
-import { Parser } from "../parser/parser";
 import { InputManager } from "./inputManager";
 
 const wasmSaveBufLen = 0x20000 + 0x2000;
@@ -15,6 +14,10 @@ export class Emulator {
 
     static getIsRunning(): boolean {
         return this.isRunning;
+    }
+
+    static getWasmSaveBuf(): Uint8Array {
+        return this.wasmSaveBuf;
     }
 
     static wasmReady(drawContext: CanvasRenderingContext2D): void {
@@ -88,11 +91,6 @@ export class Emulator {
         this.isRunning = true;
 
         InputManager.startAll();
-        // loadSaveGame(0, function () {
-        // Module._emuResetCpu();
-        // isRunning = true;
-        // }); // load save game
-
         this.emuLoop();
     }
 

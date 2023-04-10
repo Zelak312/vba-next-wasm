@@ -18,3 +18,4 @@ List of things TODO
 -   [ ] Handle most used controllers
 -   [x] Update everything (typescrypt, svelte, ect)
 -   [ ] Make inputs for phone when no controller
+-   [ ] Add docker, dockercompose and build docker image

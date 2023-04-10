@@ -40,7 +40,7 @@
         fileReader.readAsArrayBuffer(file);
     }
 
-    // Fix to make wasm know the function
+    // TODO: Fix to make wasm know the function
     (window as any).wasmReady = async () => {
         wasmStateReady = true;
         await tick();

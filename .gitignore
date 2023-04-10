@@ -41,8 +41,8 @@ build
 Release
 *.bak
 
-public/44gba.js
-public/44gba.js.symbols
-public/44gba.wasm
+public/vba-wsm.js
+public/vba-wsm.js.symbols
+public/vba-wsm.wasm
 
 test

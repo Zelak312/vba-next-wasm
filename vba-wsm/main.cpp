@@ -28,8 +28,6 @@ int osdShowCount = 0;
 uint32_t FB[240 * 160];
 uint8_t *libretro_save_buf_ptr = libretro_save_buf;
 
-uint8_t lastSaveBuf[LIBRETRO_SAVE_BUF_LEN];
-
 void systemMessage(const char *fmt, ...)
 {
     char buf[256];
@@ -94,16 +92,6 @@ extern "C"
         }
     }
 
-    int emuUpdateSavChangeFlag()
-    {
-        int changed =
-            (memcmp(lastSaveBuf, libretro_save_buf_ptr, LIBRETRO_SAVE_BUF_LEN) != 0);
-        if (changed)
-        {
-            memcpy(lastSaveBuf, libretro_save_buf_ptr, LIBRETRO_SAVE_BUF_LEN);
-        }
-        return changed;
-    }
     void emuSetSampleRate(int sampleRate) { soundSetSampleRate(sampleRate); }
 
     int emuLoadROM(int romSize)
@@ -122,7 +110,6 @@ extern "C"
         soundReset();
         rtcEnable(true);
         flashSetSize(flashSize);
-        memcpy(lastSaveBuf, libretro_save_buf_ptr, LIBRETRO_SAVE_BUF_LEN);
 #ifdef USE_FRAME_SKIP
 #warning "Frame skip enabled"
         SetFrameskip(0x1);

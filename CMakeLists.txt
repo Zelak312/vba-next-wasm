@@ -31,7 +31,7 @@ target_link_libraries(vba-wsm PRIVATE
     ${SDL2_LIBRARIES}
 )
 
-target_link_options(vba-wsm PRIVATE -flto -O3 --emit-symbol-map -sEXPORTED_FUNCTIONS=['_emuGetSymbol','_main','_emuRunFrame','_emuSetSampleRate','_emuLoadROM','_emuUpdateSavChangeFlag','_emuResetCpu','_emuAddCheat']  -sEXPORT_ALL=1 -sTOTAL_MEMORY=134217728 -sLLD_REPORT_UNDEFINED)
+target_link_options(vba-wsm PRIVATE -flto -O3 --emit-symbol-map -sEXPORTED_FUNCTIONS=['_emuGetSymbol','_main','_emuRunFrame','_emuSetSampleRate','_emuLoadROM','_emuResetCpu','_emuAddCheat']  -sEXPORT_ALL=1 -sTOTAL_MEMORY=134217728 -sLLD_REPORT_UNDEFINED)
 
 ############## Svelte ##############
 # Find npm

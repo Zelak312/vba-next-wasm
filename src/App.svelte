@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-    <script src="/44gba.js" async></script>
+    <script src="/vba-wsm.js" async></script>
 </svelte:head>
 
 <main>

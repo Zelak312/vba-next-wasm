@@ -96,7 +96,6 @@ export class Emulator {
 
     static loadSave(arrayBuffer: ArrayBuffer): void {
         this.wasmSaveBuf.set(new Uint8Array(arrayBuffer));
-        Module._emuUpdateSavChangeFlag();
         Module._emuResetCpu();
     }
 }

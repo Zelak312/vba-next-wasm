@@ -2,11 +2,7 @@
     "configurations": [
         {
             "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "/home/zelak/ghq/github.com/emscripten-core/emsdk/upstream/emscripten/system/include",
-                "/home/zelak/ghq/github.com/emscripten-core/emsdk/upstream/emscripten/system/include/**"
-            ],
+            "includePath": ["${workspaceFolder}/**"],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c17",

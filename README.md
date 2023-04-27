@@ -1,12 +1,12 @@
-# 44VBA
+# VBA-NEXT-WASM
 
-A GBA emulator for various platforms, including wasm.
+A port of libretro vba-next to wasm with a svelte front-end
 
-Forked from https://github.com/44670/44vba .
+Forked from https://github.com/44670/44vba
 
 which was
 
-Forked from https://github.com/libretro/vba-next .
+Forked from https://github.com/libretro/vba-next
 
 List of things TODO
 
@@ -18,6 +18,7 @@ List of things TODO
 -   [ ] Handle most used controllers
 -   [x] Update everything (typescrypt, svelte, ect)
 -   [ ] Make inputs for phone when no controller
--   [ ] Add docker, dockercompose and build docker image
+-   [x] Add docker
+-   [ ] Build docker images on new releases
 -   [x] Add aspect rations 3:2
 -   [ ] possibility to change screen dimensions

@@ -1,0 +1,11 @@
+.github
+.vscode
+.gitignore
+.gitmodules
+cmake-kits.json
+build
+node_modules
+
+public/vba-wsm.js
+public/vba-wsm.js.symbols
+public/vba-wsm.wasm

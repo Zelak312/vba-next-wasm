@@ -6,8 +6,12 @@
 
     let wasmStateReady = false;
     let menuIsOpen = false;
+    let width = 240;
+    let height = 160;
+    const aspectRatio = 240 / 160;
     onMount(() => {
         InputManager.initAll();
+        onResize();
     });
 
     onDestroy(() => {
@@ -57,6 +61,16 @@
             menuIsOpen = !menuIsOpen;
         }
     }
+
+    function onResize() {
+        if (window.innerWidth > window.innerHeight) {
+            width = window.innerHeight * aspectRatio;
+            height = window.innerHeight;
+        } else {
+            width = window.innerWidth;
+            height = window.innerWidth / aspectRatio;
+        }
+    }
 </script>
 
 <svelte:head>
@@ -70,14 +84,14 @@
             <input type="file" on:change={(e) => onSaveSelected(e.target)} />
         </div>
         <div class="canvas-wrapper">
-            <canvas id="canvas-emu" width="240" height="160" />
+            <canvas id="canvas-emu" {width} {height} />
         </div>
     {:else}
         <p>Loading...</p>
     {/if}
 </main>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={handleKeydown} on:resize={onResize} />
 
 <style>
     .menu {
@@ -88,15 +102,12 @@
     }
 
     .canvas-wrapper {
+        text-align: center;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     #canvas-emu {
         image-rendering: pixelated;
-        width: 100%;
-        height: 100%;
+        background-color: rebeccapurple;
     }
 </style>

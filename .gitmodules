@@ -1,3 +1,6 @@
 [submodule "vba-next"]
 	path = vba-next
 	url = https://github.com/Zelak312/vba-next
+[submodule "emsdk"]
+	path = emsdk
+	url = https://github.com/emscripten-core/emsdk

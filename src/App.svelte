@@ -5,9 +5,11 @@
     import { InputManager } from "./utils/inputManager";
 
     let wasmStateReady = false;
-    let menuIsOpen = false;
-    let width = 240;
-    let height = 160;
+    let menuIsOpen = true;
+    let initWidth = 240;
+    let initHeight = 160;
+    let width = initWidth;
+    let height = initHeight;
     const aspectRatio = 240 / 160;
     onMount(() => {
         InputManager.initAll();
@@ -30,6 +32,7 @@
         const fileReader = new FileReader();
         fileReader.onload = (e) => {
             Emulator.loadRom(file.name, e.target.result as ArrayBuffer);
+            menuIsOpen = false;
         };
 
         fileReader.readAsArrayBuffer(file);
@@ -70,6 +73,11 @@
             width = window.innerWidth;
             height = window.innerWidth / aspectRatio;
         }
+        // check if bigger than screen
+        if (width > window.innerWidth) {
+            width = window.innerWidth;
+            height = window.innerWidth / aspectRatio;
+        }
     }
 </script>
 
@@ -84,7 +92,12 @@
             <input type="file" on:change={(e) => onSaveSelected(e.target)} />
         </div>
         <div class="canvas-wrapper">
-            <canvas id="canvas-emu" {width} {height} />
+            <canvas
+                id="canvas-emu"
+                width={initWidth}
+                height={initHeight}
+                style="width: {width}px; height: {height}px;"
+            />
         </div>
     {:else}
         <p>Loading...</p>
@@ -108,6 +121,5 @@
 
     #canvas-emu {
         image-rendering: pixelated;
-        background-color: rebeccapurple;
     }
 </style>

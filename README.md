@@ -12,10 +12,11 @@ List of things TODO
 
 -   [x] Add svelte to cmake
 -   [x] Make wasm port work with svelte
--   [ ] Make screen adapative to screen resolution
+-   [x] Make screen adapative to screen resolution
 -   [ ] Make screen adapt for phone
 -   [ ] Handle keybaord inputs
 -   [ ] Handle most used controllers
 -   [x] Update everything (typescrypt, svelte, ect)
 -   [ ] Make inputs for phone when no controller
 -   [ ] Add docker, dockercompose and build docker image
+-   [ ] Add aspect rations and possibility to change screen dimensions

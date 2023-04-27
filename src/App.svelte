@@ -5,6 +5,7 @@
     import { InputManager } from "./utils/inputManager";
 
     let wasmStateReady = false;
+    let menuIsOpen = false;
     onMount(() => {
         InputManager.initAll();
     });
@@ -50,6 +51,12 @@
         Emulator.wasmReady(canvas.getContext("2d"));
     };
     (window as any).writeAudio = AudioManager.writeAudio.bind(AudioManager);
+
+    function handleKeydown(e: KeyboardEvent) {
+        if (e.key == "Escape") {
+            menuIsOpen = !menuIsOpen;
+        }
+    }
 </script>
 
 <svelte:head>
@@ -58,14 +65,38 @@
 
 <main>
     {#if wasmStateReady}
-        <input type="file" on:change={(e) => onFileSelected(e.target)} />
-        <input type="file" on:change={(e) => onSaveSelected(e.target)} />
-        <br />
-        <canvas id="canvas-emu" width="240" height="160" />
+        <div class="menu" style:visibility={menuIsOpen ? "visible" : "hidden"}>
+            <input type="file" on:change={(e) => onFileSelected(e.target)} />
+            <input type="file" on:change={(e) => onSaveSelected(e.target)} />
+        </div>
+        <div class="canvas-wrapper">
+            <canvas id="canvas-emu" width="240" height="160" />
+        </div>
     {:else}
-        <p>wasm not ready yet</p>
+        <p>Loading...</p>
     {/if}
 </main>
 
+<svelte:window on:keydown={handleKeydown} />
+
 <style>
+    .menu {
+        position: absolute;
+        visibility: hidden;
+        height: 100%;
+        width: 100%;
+    }
+
+    .canvas-wrapper {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #canvas-emu {
+        image-rendering: pixelated;
+        width: 100%;
+        height: 100%;
+    }
 </style>

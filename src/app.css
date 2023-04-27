@@ -9,3 +9,13 @@
     background-color: #242424;
     text-rendering: optimizeLegibility;
 }
+
+html,
+body,
+#app,
+main {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}

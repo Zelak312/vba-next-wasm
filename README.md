@@ -19,6 +19,6 @@ List of things TODO
 -   [x] Update everything (typescrypt, svelte, ect)
 -   [ ] Make inputs for phone when no controller
 -   [x] Add docker
--   [ ] Build docker images on new releases
+-   [x] Build docker images on new releases
 -   [x] Add aspect rations 3:2
 -   [ ] possibility to change screen dimensions

@@ -21,5 +21,12 @@ jobs:
             - name: Build and push
               uses: docker/build-push-action@v4
               with:
+                  platforms: linux/amd64,linux/arm64
                   push: true
                   tags: zelak/vba-next-wasm:latest
+            - name: Update repo description
+              uses: peter-evans/dockerhub-description@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+                  repository: zelak/vba-next-wasm

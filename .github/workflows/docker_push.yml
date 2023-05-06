@@ -31,6 +31,8 @@ jobs:
                       zelak/vba-next-wasm
                   tags: |
                       type=semver,pattern={{version}}
+                  flavor: |
+                      latest=auto
             - name: Build and push
               uses: docker/build-push-action@v4
               with:

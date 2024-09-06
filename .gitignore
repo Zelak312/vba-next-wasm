@@ -46,3 +46,4 @@ public/vba-wsm.js.symbols
 public/vba-wsm.wasm
 
 test
+LocalSettings.cmake

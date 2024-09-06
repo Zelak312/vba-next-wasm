@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.5)
 
+# Include local settings if available
+if(EXISTS "${CMAKE_SOURCE_DIR}/LocalSettings.cmake")
+    include("${CMAKE_SOURCE_DIR}/LocalSettings.cmake")
+endif()
+
 # Define project
+get_filename_component(ABSOLUTE_PATH_TO_EMCC "./emsdk/upstream/emscripten/emcc" ABSOLUTE)
+set(CMAKE_C_COMPILER ${ABSOLUTE_PATH_TO_EMCC})
+
+get_filename_component(ABSOLUTE_PATH_TO_EMPP "./emsdk/upstream/emscripten/em++" ABSOLUTE)
+set(CMAKE_CXX_COMPILER ${ABSOLUTE_PATH_TO_EMPP})
 project(gba)
 
 ############## GBA ##############

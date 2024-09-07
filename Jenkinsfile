@@ -38,8 +38,10 @@ pipeline {
                 docker context create ${DOCKER_TLS_CONTEXT} \
                     --docker "host=${DOCKER_HOST},ca=${CA_CERT},cert=${CLIENT_CERT},key=${CLIENT_KEY}"
                 """
-                // Use the created context for Buildx
-                sh "docker buildx use ${DOCKER_TLS_CONTEXT}"
+                // Switch to the created context
+                sh "docker context use ${DOCKER_TLS_CONTEXT}"
+                // Set up Docker Buildx to use the context
+                sh "docker buildx create --use"
             }
         }
     }

@@ -22,7 +22,7 @@ pipeline {
       }
     }
 
-    stage('Login to gitea') {
+    stage('push docker') {
       environment {
         GITEA_PASSWORD = credentials('31f190d2-0c8c-4349-89cf-09cacf935460')
       }

@@ -67,12 +67,17 @@ pipeline {
   }
 
   post {
-        always {
-            script {
-                // Clean up the Buildx builder instance and remove the Docker context
-                sh 'docker buildx rm'
-                sh 'docker context rm ${DOCKER_TLS_CONTEXT}'
-            }
+    always {
+        script {
+            // Detach the builder instance to safely remove it
+            sh 'docker buildx stop'
+            
+            // Switch back to the default context
+            sh 'docker context use default'
+
+            // Remove the custom TLS context
+            sh 'docker context rm ${DOCKER_TLS_CONTEXT}'
         }
     }
+}
 }

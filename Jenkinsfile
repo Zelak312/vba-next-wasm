@@ -14,8 +14,8 @@ pipeline {
     stage('Login to gitea') {
       steps {
         script {
-          withCredentials([string(credentialsId: '31f190d2-0c8c-4349-89cf-09cacf935460', variable: 'GITEA_PASSWORD')]) {
-            sh "echo '${GITEA_PASSWORD}' | docker login gitea.zelak.dev -u Zelak --password-stdin"
+          withCredentials([usernamePassword(credentialsId: '31f190d2-0c8c-4349-89cf-09cacf935460', passwordVariable: 'GITEA_TOKEN', usernameVariable: 'GITEA_USER')]) {
+            sh "echo '${GITEA_TOKEN}' | docker login gitea.zelak.dev -u ${GITEA_USER} --password-stdin"
           }
         }
       }

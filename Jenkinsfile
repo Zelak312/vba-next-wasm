@@ -21,7 +21,7 @@ pipeline {
       }
     }
 
-    stage('push docker') {
+    stage('Push docker') {
       steps {
           script {
               sh "docker push gitea.zelak.dev/zelak/vba-next-wasm:latest"

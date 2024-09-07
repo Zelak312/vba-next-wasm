@@ -6,15 +6,15 @@ pipeline {
     }
 
   stages {
-    stage('Build') {
-      agent any
-      environment {
-        test = 'secrect'
-      }
-      steps {
-        sh 'docker build . -t gitea.zelak.dev/zelak/vba-next-wasm:latest'
-      }
-    }
+    //stage('Build') {
+    //  agent any
+    //  environment {
+    //    test = 'secrect'
+     // }
+     // steps {
+      //  sh 'docker build . -t gitea.zelak.dev/zelak/vba-next-wasm:latest'
+      //}
+    //}
 
     stage('Install QEMU with tonistiigi/binfmt') {
         steps {

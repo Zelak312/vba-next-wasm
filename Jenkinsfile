@@ -3,6 +3,11 @@ pipeline {
 
   environment {
         PLATFORMS = 'linux/amd64,linux/arm64'
+        DOCKER_TLS_CONTEXT = 'my-tls-context'
+        DOCKER_HOST = 'tcp://docker:2376'
+        CA_CERT = '/certs/client/ca.pem'
+        CLIENT_CERT = '/certs/client/cert.pem'
+        CLIENT_KEY = '/certs/client/key.pem'
     }
 
   stages {
@@ -25,12 +30,16 @@ pipeline {
         }
     }
 
-    stage('Setup Buildx') {
+    stage('Setup Docker Context and Buildx') {
         steps {
             script {
-                // Set up Docker Buildx
-                sh 'docker buildx create --use'
-                sh 'docker buildx inspect --bootstrap'
+                // Create Docker context with TLS configuration
+                sh """
+                docker context create ${DOCKER_TLS_CONTEXT} \
+                    --docker "host=${DOCKER_HOST},ca=${CA_CERT},cert=${CLIENT_CERT},key=${CLIENT_KEY}"
+                """
+                // Use the created context for Buildx
+                sh "docker buildx use ${DOCKER_TLS_CONTEXT}"
             }
         }
     }
@@ -58,8 +67,9 @@ pipeline {
   post {
         always {
             script {
-                // Clean up the Buildx builder instance after the build
+                // Clean up the Buildx builder instance and remove the Docker context
                 sh 'docker buildx rm'
+                sh 'docker context rm ${DOCKER_TLS_CONTEXT}'
             }
         }
     }

@@ -8,6 +8,7 @@ pipeline {
         CA_CERT = '/certs/client/ca.pem'
         CLIENT_CERT = '/certs/client/cert.pem'
         CLIENT_KEY = '/certs/client/key.pem'
+        BUILDER_NAME = 'multiarch-builder'  // Name for your Buildx builder
     }
 
   stages {
@@ -30,21 +31,24 @@ pipeline {
         }
     }
 
-    stage('Setup Docker Context and Buildx') {
-        steps {
-            script {
-                // Create Docker context with TLS configuration
-                sh """
-                docker context create ${DOCKER_TLS_CONTEXT} \
-                    --docker "host=${DOCKER_HOST},ca=${CA_CERT},cert=${CLIENT_CERT},key=${CLIENT_KEY}"
-                """
-                // Switch to the created context
-                sh "docker context use ${DOCKER_TLS_CONTEXT}"
-                // Set up Docker Buildx to use the context
-                sh "docker buildx create --use"
-            }
-        }
-    }
+    stage('Setup Docker Buildx with docker-container driver') {
+      steps {
+          script {
+              // Create a Buildx builder using the docker-container driver and TLS settings
+              sh """
+              docker buildx create --name ${BUILDER_NAME} --driver docker-container --use \
+                  --config docker \
+                  --host ${DOCKER_HOST} \
+                  --tlsverify \
+                  --tlscacert ${CA_CERT} \
+                  --tlscert ${CLIENT_CERT} \
+                  --tlskey ${CLIENT_KEY}
+              """
+              // Ensure Buildx is set up and ready
+              sh "docker buildx inspect ${BUILDER_NAME} --bootstrap"
+          }
+      }
+  }
 
     stage('Login to gitea') {
       steps {
@@ -69,14 +73,9 @@ pipeline {
   post {
     always {
         script {
-            // Detach the builder instance to safely remove it
-            sh 'docker buildx stop'
-            
-            // Switch back to the default context
-            sh 'docker context use default'
-
-            // Remove the custom TLS context
-            sh 'docker context rm ${DOCKER_TLS_CONTEXT}'
+            // Stop and remove the Buildx builder instance
+            sh 'docker buildx stop ${BUILDER_NAME}'
+            sh 'docker buildx rm ${BUILDER_NAME}'
         }
     }
 }

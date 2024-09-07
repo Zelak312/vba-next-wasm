@@ -49,7 +49,7 @@ pipeline {
       steps {
           script {
               // sh "docker push gitea.zelak.dev/zelak/vba-next-wasm:latest"
-              docker buildx build --platform ${PLATFORMS} -t gitea.zelak.dev/zelak/vba-next-wasm:latest --push .
+              sh "docker buildx build --platform ${PLATFORMS} -t gitea.zelak.dev/zelak/vba-next-wasm:latest --push ."
           }
       }
     }

@@ -12,15 +12,22 @@ pipeline {
     }
 
   stages {
-    //stage('Build') {
-    //  agent any
-    //  environment {
-    //    test = 'secrect'
-     // }
-     // steps {
-      //  sh 'docker build . -t gitea.zelak.dev/zelak/vba-next-wasm:latest'
-      //}
-    //}
+    stage('Construct Repository URL') {
+      steps {
+          script {
+              // Extract and format the GIT_URL to match 'gitea.zelak.dev/zelak/vba-next-wasm'
+              def gitUrl = env.GIT_URL ?: 'unknown'
+              
+              // Strip protocol if present (e.g., https:// or git@)
+              def formattedUrl = gitUrl.replaceAll('https://|git@', '').replace(':', '/').replace('.git', '')
+              
+              echo "Original GIT_URL: ${gitUrl}"
+              echo "Formatted Repository URL: ${formattedUrl}"
+              
+              // Use formattedUrl wherever you need the formatted repo URL
+          }
+      }
+  }
 
     stage('Install QEMU with tonistiigi/binfmt') {
         steps {

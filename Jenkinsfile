@@ -7,7 +7,7 @@ pipeline {
         test = 'secrect'
       }
       steps {
-        sh 'docker build . -t gitea.zelak.dev/Zelak/vba-next-wasm:latest'
+        sh 'docker build . -t gitea.zelak.dev/zelak/vba-next-wasm:latest'
       }
     }
 
@@ -28,7 +28,7 @@ pipeline {
       }
       steps {
           script {
-              sh "docker push gitea.zelak.dev/Zelak/vba-next-wasm:latest"
+              sh "docker push gitea.zelak.dev/zelak/vba-next-wasm:latest"
           }
       }
     }

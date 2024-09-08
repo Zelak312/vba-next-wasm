@@ -10,4 +10,12 @@ pipeline {
       }
     }
   }
+
+  post {
+    always {
+      script {
+        multiPlatformDockerBuild.cleanup()
+      }
+    }
+  }
 }
